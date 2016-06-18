@@ -25,7 +25,11 @@ public class MainMenu implements Screen {
 	
 	@Override
 	public void show() {
-		atlas = new TextureAtlas("ui/blue/button.pack");
+		stage = new Stage();
+		
+		Gdx.input.setInputProcessor(stage);
+		
+		atlas = new TextureAtlas("ui/uiskin.pack");
 		skin = new Skin(atlas);
 		
 		white = new BitmapFont(Gdx.files.internal("fonts/white.fnt"), false);
@@ -35,17 +39,19 @@ public class MainMenu implements Screen {
 		
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.font = white;
-		textButtonStyle.up = skin.getDrawable("button.up.9.png");
-		textButtonStyle.down = skin.getDrawable("button.down.9.png");
+		textButtonStyle.up = skin.getDrawable("default-rect");
+		textButtonStyle.down = skin.getDrawable("default-rect-down");
 		textButtonStyle.pressedOffsetX = 1;
 		textButtonStyle.pressedOffsetY = -1;
 		
 		buttonPlay = new TextButton("PLAY", textButtonStyle);
 		buttonPlay.pad(20);
 		buttonOption = new TextButton("OPTIONS", textButtonStyle);
-		
+		buttonOption.pad(20);
 		table.add(buttonPlay);
-		table.debugActor();
+		table.row();
+		table.add(buttonOption);
+		//table.debugActor();
 		stage.addActor(table);
 		
 		
@@ -54,7 +60,7 @@ public class MainMenu implements Screen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_CLEAR_VALUE);
 		stage.act(delta);
 		stage.draw();
